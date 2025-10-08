@@ -13,7 +13,7 @@ export default function NewTahririn({ books = [], title }) {
       <div
         dir="rtl"
         className="
-          mt-6 grid grid-cols-1
+          mt-6 grid grid-cols-2
           sm:grid-cols-2
           md:grid-cols-3 md:w-full 
           lg:grid-cols-4 lg:w-full lg:gap-x-14 lg:px-0 lg:-ml-10

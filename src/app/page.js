@@ -97,7 +97,7 @@ export default function Home() {
                 );
               })}
             </div>
-            <div className="md:hidden w-full lg:block lg:w-full">
+            <div className="md:block hidden w-full lg:block lg:w-full">
               <TechPark />
             </div>
           </div>

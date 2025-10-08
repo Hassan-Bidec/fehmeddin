@@ -5,7 +5,7 @@ const HomeCardLayout = ({ books = [], title }) => {
   return (
     <div className="">
       {/* Section Header */}
-      <div className="flex w-full justify-center md:justify-end">
+      <div className="flex w-full justify-end">
   <h2
     className="bg-gradient-to-r from-[#8E2C62] to-[#5D1F42] text-white
       px-6 py-3 rounded-l-full text-xl sm:text-2xl mt-10 mb-2 font-bold inline-block whitespace-nowrap mr-7"
@@ -18,7 +18,7 @@ const HomeCardLayout = ({ books = [], title }) => {
       {/* Cards */}
       <div
         dir="rtl"
-        className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 
+        className="mt-6 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 
                    justify-items-center md:justify-items-start"
       >
         {books.slice(0, 15).map((post, i) => (
