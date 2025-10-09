@@ -1,28 +1,29 @@
 export default function NewTahririn({ books = [], title }) {
   return (
-    <div className="mt-10 ">
+    <div className="mt-10 -sm:px-7 ">
       {/* Section Header */}
       <div className="flex w-full justify-end">
         <h2 className="bg-gradient-to-r from-[#8E2C62] to-[#5D1F42] text-white
-          px-18 py-3 rounded-l-full text-lg sm:text-2xl mr-2 sm:mr-5 font-bold inline-block whitespace-nowrap">
+          px-18 py-3 rounded-l-full text-lg sm:text-2xl ml-5 sm:mr-2 font-bold inline-block whitespace-nowrap ">
           {title}
         </h2>
       </div>
 
-      {/* Cards */}
+      
       <div
-        dir="rtl"
-        className="
-          mt-6 grid grid-cols-2
-          sm:grid-cols-2
-          md:grid-cols-3 md:w-full 
-          lg:grid-cols-4 lg:w-full lg:gap-x-14 lg:px-0 lg:-ml-10
-          gap-3
-          [@media(min-width:1026px)_and_(max-width:1279px)]:grid-cols-3 
-          [@media(min-width:1026px)_and_(max-width:1279px)]:ml-2 
-          [@media(min-width:1026px)_and_(max-width:1279px)]:w-full
-        "
-      >
+  dir="rtl"
+  className="
+    mt-6 grid grid-cols-2
+    sm:grid-cols-2
+    md:grid-cols-3 md:w-full 
+    lg:grid-cols-4 lg:w-full lg:gap-x-25 lg:px-0 lg:-ml-10
+    gap-3
+    [@media(min-width:1026px)_and_(max-width:1279px)]:grid-cols-3 
+    [@media(min-width:1026px)_and_(max-width:1279px)]:ml-2 
+    [@media(min-width:1026px)_and_(max-width:1279px)]:w-full
+  "
+>
+
         {books.slice(0, 20).map((post, i) => (
           <div
             key={i}
@@ -32,7 +33,7 @@ export default function NewTahririn({ books = [], title }) {
   href={`${process.env.NEXT_PUBLIC_API_BASE_URL}${post.pdfLink}`}
   target="_blank"
   rel="noopener noreferrer"
-  className="md:w-[200px] w-full p-1 h-[250px] rounded-md flex flex-col shadow-[1.32px_1.32px_19.78px_0px_#00000012]"
+  className="md:w-[200px] w-full p-1 h-[250px] rounded-md flex flex-col shadow-[1.32px_1.32px_19.78px_0px_#00000012] gap-x-3"
 >
               {/* Image */}
               <img

@@ -15,7 +15,6 @@ export default function Home() {
   useEffect(() => {
     setLoading(true);
 
-    // ✅ Left ke liye 20, Right ke liye 30
     const leftPromise = categoriesApi.BooksFilterByTag(21);
     const rightPromise = categoriesApi.BooksFilterByTag(20);
 
@@ -53,56 +52,60 @@ export default function Home() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 p-24">
-      {loading ? (
-        <Loader />
-      ) : (
-        <div className="flex flex-col lg:flex-row gap-4">
-          
-          <div className="w-full lg:w-2/5 order-2 lg:order-1">
-            {layoutMap.left.map((key, index) => {
-              const Component = componentMap[key];
-              return (
-                Component &&
-                data.left?.[key] && (
-                  <Component
-                    key={index}
-                    books={Array.isArray(data.left[key]) ? data.left[key].slice(0, 30) : []}
-                    title={key}
-                  />
-
-                )
-              );
-            })}
-
-            <div className="lg:hidden">
-              <TechPark />
-            </div>
-          </div>
-
-          {/* Right Column */}
-          <div className="order-1 lg:order-2">
-            <div className="lg:w-[800px] lg:ml-20">
-              {layoutMap.right.map((key, index) => {
+    <div className="w-full bg-white">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-10">
+        {loading ? (
+          <Loader />
+        ) : (
+          <div className="flex flex-col lg:flex-row gap-10">
+            {/* Left Column */}
+            <div className="w-full lg:w-2/5 order-2 lg:order-1">
+              {layoutMap.left.map((key, index) => {
                 const Component = componentMap[key];
                 return (
                   Component &&
-                  data.right?.[key] && (
+                  data.left?.[key] && (
                     <Component
                       key={index}
-                      books={data.right[key]} 
+                      books={Array.isArray(data.left[key]) ? data.left[key].slice(0, 30) : []}
                       title={key}
                     />
                   )
                 );
               })}
+
+              <div className="lg:hidden mt-8">
+                <TechPark />
+              </div>
             </div>
-            <div className="md:block hidden w-full lg:block lg:w-full">
-              <TechPark />
-            </div>
+
+            {/* Right Column */}
+           <div className="w-full lg:w-3/4 order-1 lg:order-2">
+  <div className="space-y-10"> {/* Vertical spacing between components */}
+    {layoutMap.right.map((key, index) => {
+      const Component = componentMap[key];
+      return (
+        Component &&
+        data.right?.[key] && (
+          <Component
+            key={index}
+            books={data.right[key]}
+            title={key}
+            className="grid gap-10" // <-- ye ensure karega cards ke beech spacing
+          />
+        )
+      );
+    })}
+  </div>
+
+  <div className="hidden lg:block mt-10">
+    <TechPark />
+  </div>
+</div>
+
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

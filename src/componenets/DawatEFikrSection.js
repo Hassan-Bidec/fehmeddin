@@ -1,85 +1,81 @@
 "use client";
+
 import React, { useState, useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import "swiper/css";
-import { Archivo_Black } from "next/font/google";
-
-const archivoBlack = Archivo_Black({
-  subsets: ["latin"],
-  weight: "400",
-});
 
 const DawatEFikrSwiper = ({ sub }) => {
-  const swiperRef = useRef(null);
-  const [progress, setProgress] = useState(0);
-  const [activeBtn, setActiveBtn] = useState(null);
-  const [windowWidth, setWindowWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 1024
-  );
-
   const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const cards = sub?.books || [];
+  const [progress, setProgress] = useState(0);
+  const swiperRef = useRef(null);
+  const [activeBtn, setActiveBtn] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(0);
 
-  // Window resize listener
+  // ✅ Track window width + fix resize issue
   useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const updateWidth = () => setWindowWidth(window.innerWidth);
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
+  // ✅ Fix for Swiper layout hydration issue
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (swiperRef.current) swiperRef.current.update();
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [windowWidth]);
+
+  const cards = sub?.books || [];
+
   return (
-    <div className="mx-auto mt-5 bg-white w-full px-4 md:px-6 font-urdu">
-      {/* Title and Arrows */}
+    <div className="mx-auto mt-5 bg-white w-full px-4 sm:px-6 md:px-8 lg:px-5 xl:px-14 font-urdu max-w-[1600px]">
+      {/* --- Title and Arrows --- */}
       <div className="flex flex-col md:flex-row items-center justify-center relative mb-4 gap-3">
-        {/* Month/Year */}
         <div
-          className={`bg-gradient-to-r from-[#8E2C62] to-[#5D1F42] 
-    text-white font-bold 
-    w-[220px] h-[50px] flex items-center justify-center 
-    rounded-full text-center px-2
-    ${!isNaN(Number(sub.name))
-              ? `${archivoBlack.className} text-[20px]`
-              : "text-[18px] md:text-[20px] font-urdu"
-            }`}
+          className={`bg-gradient-to-r from-[#8E2C62] to-[#5D1F42]
+            text-white font-bold 
+            w-[220px] h-[50px] flex items-center justify-center 
+            rounded-full text-center px-2 shadow-md text-[18px] md:text-[20px]`}
         >
-          <span className="truncate">{sub.name}</span>
+          <span className="truncate">{sub?.name}</span>
         </div>
 
-
-
-        {/* Navigation Buttons */}
+        {/* --- Navigation Buttons --- */}
         <div
-          className={`flex gap-2 ${windowWidth < 768
-            ? "justify-center mt-3 w-full"
-            : "absolute right-0 top-1/2 -translate-y-1/2"
-            }`}
+          className={`flex gap-2 transition-all duration-300 ${
+            windowWidth < 768
+              ? "justify-center mt-3 w-full"
+              : "absolute right-0 top-1/2 -translate-y-1/2"
+          }`}
         >
-          {/* Left Button */}
           <button
             onClick={() => {
               swiperRef.current?.slidePrev();
               setActiveBtn("left");
             }}
-            className={`px-4 py-2 rounded-full flex items-center justify-center border transition
-              ${activeBtn === "left"
-                ? "bg-[#7a2f5a] text-white border-[#7a2f5a]"
-                : "border-[#72253e] text-[#72253e] hover:bg-[#7a2f5a] hover:text-white"
+            className={`px-4 py-2 rounded-full flex items-center justify-center border transition-all duration-300
+              ${
+                activeBtn === "left"
+                  ? "bg-[#7a2f5a] text-white border-[#7a2f5a]"
+                  : "border-[#72253e] text-[#72253e] hover:bg-[#7a2f5a] hover:text-white"
               }`}
           >
             <FaArrowLeft size={14} />
           </button>
 
-          {/* Right Button */}
           <button
             onClick={() => {
               swiperRef.current?.slideNext();
               setActiveBtn("right");
             }}
-            className={`px-4 py-2 rounded-full flex items-center justify-center border transition
-              ${activeBtn === "right"
-                ? "bg-[#7a2f5a] text-white border-[#7a2f5a]"
-                : "border-[#72253e] text-[#72253e] hover:bg-[#7a2f5a] hover:text-white"
+            className={`px-4 py-2 rounded-full flex items-center justify-center border transition-all duration-300
+              ${
+                activeBtn === "right"
+                  ? "bg-[#7a2f5a] text-white border-[#7a2f5a]"
+                  : "border-[#72253e] text-[#72253e] hover:bg-[#7a2f5a] hover:text-white"
               }`}
           >
             <FaArrowRight size={14} />
@@ -87,59 +83,68 @@ const DawatEFikrSwiper = ({ sub }) => {
         </div>
       </div>
 
-      {/* Progress Bar */}
-      <div className="w-full h-[5px] bg-gray-300 rounded-md overflow-hidden mt-10 mb-4">
+      {/* --- Progress Bar --- */}
+      <div className="w-full h-[5px] bg-gray-300 rounded-md overflow-hidden mt-6 mb-8">
         <div
           className="h-full bg-[#72253e] transition-all duration-300"
           style={{ width: `${progress}%` }}
         ></div>
       </div>
 
-      {/* Swiper */}
+      {/* --- Swiper Cards --- */}
       <Swiper
         dir="rtl"
         className="m-auto"
-        spaceBetween={10}
-        slidesPerView={1.2}
-        centeredSlides={true}
+        spaceBetween={15}
+        slidesPerView={1.8}
+        centeredSlides={false}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
         onSlideChange={(swiper) => {
-          const totalSlides =
-            swiper.slides.length - swiper.params.slidesPerView;
+          const totalSlides = swiper.slides.length - swiper.params.slidesPerView;
           const current = swiper.activeIndex;
           const percent = (current / totalSlides) * 100;
           setProgress(Math.min(percent, 100));
         }}
         breakpoints={{
-          640: { slidesPerView: 2, centeredSlides: false },
-          768: { slidesPerView: 3, centeredSlides: false },
-          1024: { slidesPerView: 7, centeredSlides: false },
+          320: { slidesPerView: 1.5, spaceBetween: 10 },
+          480: { slidesPerView: 2, spaceBetween: 15 },
+          640: { slidesPerView: 3, spaceBetween: 15 },
+          768: { slidesPerView: 4, spaceBetween: 15 },
+          1024: { slidesPerView: 5, spaceBetween: 15 },
+          1280: { slidesPerView: 6, spaceBetween: 15 },
+          1536: { slidesPerView: 7, spaceBetween: 15 },
         }}
       >
-        {cards.map((card, index) => (
-          <SwiperSlide key={index} className="flex justify-center">
+        {cards.map((post, i) => (
+          <SwiperSlide key={i} className="flex justify-center overflow-visible p-1">
             <a
-              dir="rtl"
-              href={`${BASE_URL}${card.pdfLink}`}
+              href={`${BASE_URL}${post.pdfLink}`}
               target="_blank"
               rel="noopener noreferrer"
+              className="flex flex-col items-center text-right w-full max-w-[240px] mx-auto md:mx-0 md:mr-5"
             >
               <div
-                dir="rtl"
-                className="bg-white rounded-[19.57px] mt-10 mb-20 shadow-[0.8px_0.8px_10px_0px_#00000012] hover:shadow-md transition duration-300 h-[380.93px] flex flex-col md:w-[160px] mx-auto"
+                className="w-full p-2 h-[310px] rounded-2xl bg-white 
+                  shadow-[0.8px_0.8px_10px_0px_#00000012]
+                  flex flex-col transition-transform duration-300 hover:scale-[1.02]"
               >
+                {/* Image */}
                 <img
-                  src={`${BASE_URL}${card.image}`}
-                  alt={card.name}
-                  className="w-full p-2 h-[220px] object-cover rounded-[15.65px]"
+                  src={`${BASE_URL}${post.image}`}
+                  alt={post.name}
+                  className="rounded-xl w-full max-w-[220px] h-[180px] object-cover mx-auto"
                 />
-                <div className="p-2 text-right text-black flex-1 flex flex-col">
-                  <h4 className="text-[20.91px] mb-1 line-clamp-1">
-                    {card.name}
-                  </h4>
-                  <p className="text-[20.91px] line-clamp-3 ">{card.description}</p>
+
+                {/* Text */}
+                <div className="px-2 py-2 flex-1 flex flex-col">
+                  <h3 className="text-[16px] text-gray-800 font-semibold line-clamp-2">
+                    {post.name}
+                  </h3>
+                  <p className="text-gray-600 text-sm mt-2 font-[400] line-clamp-4">
+                    {post.description}
+                  </p>
                 </div>
               </div>
             </a>

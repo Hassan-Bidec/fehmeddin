@@ -8,7 +8,7 @@ const HomeCardLayout = ({ books = [], title }) => {
       <div className="flex w-full justify-end">
   <h2
     className="bg-gradient-to-r from-[#8E2C62] to-[#5D1F42] text-white
-      px-6 py-3 rounded-l-full text-xl sm:text-2xl mt-10 mb-2 font-bold inline-block whitespace-nowrap mr-7"
+      px-6 py-3 rounded-l-full text-xl sm:text-2xl mt-10 mb-2 font-bold inline-block whitespace-nowrap mr-2 md:mr-4"
   >
     {title}
   </h2>

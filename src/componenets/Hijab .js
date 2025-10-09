@@ -13,14 +13,14 @@ export default function Hijab({ books = [], title }) {
       <div
         dir="rtl"
         className="w-auto mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 
-                   gap-x-3 gap-y-3 justify-start px-2 sm:px-0"
+                   gap-x-3 gap-y-3 justify-start px-2 sm:px-0 "
       >
         {books.slice(0, 18).map((post, i) => (
           <a
             key={i}
             href={`${process.env.NEXT_PUBLIC_API_BASE_URL}${post.pdfLink}`}
             dir="ltr"
-            className="bg-white shadow-[0.8px_0.8px_10px_0px_#00000012] rounded-xl 
+            className="shadow-[0.8px_0.8px_10px_0px_#00000012] rounded-xl 
                        w-full transition duration-200 flex flex-row items-center justify-between 
                        px-3 py-2 sm:w-auto md:w-[250px]"
           >
@@ -35,8 +35,8 @@ export default function Hijab({ books = [], title }) {
 
             {/* Text */}
             <div className="text-right pr-2 flex-1 order-1">
-              <h4 className="font-medium text-[16px] mb-1 line-clamp-2">{post.name}</h4>
-              <p className="text-sm line-clamp-3">{post.description}</p>
+              <h4 className="font-medium text-[16px] mb-1 line-clamp-2 text-black">{post.name}</h4>
+              <p className="text-sm line-clamp-3 text-gray-800">{post.description}</p>
             </div>
           </a>
         ))}

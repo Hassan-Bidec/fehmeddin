@@ -70,9 +70,9 @@ export default function Header() {
       {/* Top Header */}
       <div className="bg-[#0093e0] text-white px-4 flex flex-col md:flex-row justify-between items-center rtl gap-3">
         <div className="text-center md:text-right leading-tight">
-          <p className="text-[20px] mt-2 mb-1">
-            زیر سرپرستی: حضرت مولانا عبد الرحمن حفظہ اللہ
-          </p>
+         <p className="text-[20px] mt-2 mb-1">
+  زیر سرپرستی: حضرت مولانا عبد الستار حفظہ اللہ
+</p>
 
           <p className="text-[16px] flex items-center justify-end gap-2" dir="rtl">
             <FaRegCalendarAlt className="text-white text-[16px]" />

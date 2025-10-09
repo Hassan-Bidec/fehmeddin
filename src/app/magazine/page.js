@@ -247,30 +247,31 @@ const Page = () => {
   };
 
   return (
-    <div className=" p-4">
-      <UrduMonthSelector onFilterChange={handleFilterChange} />
+ <div className="p-4 2xl:container 2xl:mx-auto 2xl:px-10">
+  <UrduMonthSelector onFilterChange={handleFilterChange} />
 
-      
-      <div className="mt-10">
-        {loading ? (
-          <Loader />
-        ) : Object.keys(yearWiseData).length > 0 ? (
-          Object.entries(yearWiseData)
-            .reverse()
-            .map(([year, books], yearIndex) => (
-              <section key={year} className="mb-10">
-                {yearIndex % 2 === 0 ? (
-                  <CountrySection sub={{ name: year, books: books ?? [] }} />
-                ) : (
-                  <DawatEFikrSwiper sub={{ name: year, books: books ?? [] }} />
-                )}
-              </section>
-            ))
-        ) : (
-          <p className="text-center">No year found</p>
-        )}
-      </div>
-    </div>
+  <div className="mt-10">
+    {loading ? (
+      <Loader />
+    ) : Object.keys(yearWiseData).length > 0 ? (
+      Object.entries(yearWiseData)
+        .reverse()
+        .map(([year, books], yearIndex) => (
+          <section key={year} className="mb-10">
+            {yearIndex % 2 === 0 ? (
+              <CountrySection sub={{ name: year, books: books ?? [] }} />
+            ) : (
+              <DawatEFikrSwiper sub={{ name: year, books: books ?? [] }} />
+            )}
+          </section>
+        ))
+    ) : (
+      <p className="text-center">No year found</p>
+    )}
+  </div>
+</div>
+
+
   );
 };
 
