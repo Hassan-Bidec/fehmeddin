@@ -260,8 +260,10 @@ const Page = () => {
           <section key={year} className="mb-10">
             {yearIndex % 2 === 0 ? (
               <CountrySection sub={{ name: year, books: books ?? [] }} />
+              // varticallay cards
             ) : (
               <DawatEFikrSwiper sub={{ name: year, books: books ?? [] }} />
+              // horrizantally card
             )}
           </section>
         ))

@@ -12,7 +12,7 @@ const DawatEFikrSwiper = ({ sub }) => {
   const [activeBtn, setActiveBtn] = useState(null);
   const [windowWidth, setWindowWidth] = useState(0);
 
-  // ✅ Track window width + fix resize issue
+  // ✅ Track window width
   useEffect(() => {
     const updateWidth = () => setWindowWidth(window.innerWidth);
     updateWidth();
@@ -20,7 +20,7 @@ const DawatEFikrSwiper = ({ sub }) => {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  // ✅ Fix for Swiper layout hydration issue
+  // ✅ Fix hydration issue
   useEffect(() => {
     const timer = setTimeout(() => {
       if (swiperRef.current) swiperRef.current.update();
@@ -31,7 +31,7 @@ const DawatEFikrSwiper = ({ sub }) => {
   const cards = sub?.books || [];
 
   return (
-    <div className="mx-auto mt-5 bg-white w-full px-4 sm:px-6 md:px-8 lg:px-5 xl:px-14 font-urdu max-w-[1600px]">
+    <div className="mx-auto mt-5 bg-white w-full px-4 sm:px-6 md:px-10 lg:px-14 xl:px-20 2xl:px-40 font-urdu max-w-[2200px]">
       {/* --- Title and Arrows --- */}
       <div className="flex flex-col md:flex-row items-center justify-center relative mb-4 gap-3">
         <div
@@ -45,11 +45,10 @@ const DawatEFikrSwiper = ({ sub }) => {
 
         {/* --- Navigation Buttons --- */}
         <div
-          className={`flex gap-2 transition-all duration-300 ${
-            windowWidth < 768
+          className={`flex gap-2 transition-all duration-300 ${windowWidth < 768
               ? "justify-center mt-3 w-full"
               : "absolute right-0 top-1/2 -translate-y-1/2"
-          }`}
+            }`}
         >
           <button
             onClick={() => {
@@ -57,10 +56,9 @@ const DawatEFikrSwiper = ({ sub }) => {
               setActiveBtn("left");
             }}
             className={`px-4 py-2 rounded-full flex items-center justify-center border transition-all duration-300
-              ${
-                activeBtn === "left"
-                  ? "bg-[#7a2f5a] text-white border-[#7a2f5a]"
-                  : "border-[#72253e] text-[#72253e] hover:bg-[#7a2f5a] hover:text-white"
+              ${activeBtn === "left"
+                ? "bg-[#7a2f5a] text-white border-[#7a2f5a]"
+                : "border-[#72253e] text-[#72253e] hover:bg-[#7a2f5a] hover:text-white"
               }`}
           >
             <FaArrowLeft size={14} />
@@ -72,10 +70,9 @@ const DawatEFikrSwiper = ({ sub }) => {
               setActiveBtn("right");
             }}
             className={`px-4 py-2 rounded-full flex items-center justify-center border transition-all duration-300
-              ${
-                activeBtn === "right"
-                  ? "bg-[#7a2f5a] text-white border-[#7a2f5a]"
-                  : "border-[#72253e] text-[#72253e] hover:bg-[#7a2f5a] hover:text-white"
+              ${activeBtn === "right"
+                ? "bg-[#7a2f5a] text-white border-[#7a2f5a]"
+                : "border-[#72253e] text-[#72253e] hover:bg-[#7a2f5a] hover:text-white"
               }`}
           >
             <FaArrowRight size={14} />
@@ -84,7 +81,7 @@ const DawatEFikrSwiper = ({ sub }) => {
       </div>
 
       {/* --- Progress Bar --- */}
-      <div className="w-full h-[5px] bg-gray-300 rounded-md overflow-hidden mt-6 mb-8">
+      <div className="w-full h-[5px] mt-10 bg-gray-300 rounded-md overflow-hidden mb-4">
         <div
           className="h-full bg-[#72253e] transition-all duration-300"
           style={{ width: `${progress}%` }}
@@ -95,8 +92,8 @@ const DawatEFikrSwiper = ({ sub }) => {
       <Swiper
         dir="rtl"
         className="m-auto"
-        spaceBetween={15}
-        slidesPerView={1.8}
+        spaceBetween={20}
+        slidesPerView={2}
         centeredSlides={false}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
@@ -111,14 +108,19 @@ const DawatEFikrSwiper = ({ sub }) => {
           320: { slidesPerView: 1.5, spaceBetween: 10 },
           480: { slidesPerView: 2, spaceBetween: 15 },
           640: { slidesPerView: 3, spaceBetween: 15 },
-          768: { slidesPerView: 4, spaceBetween: 15 },
-          1024: { slidesPerView: 5, spaceBetween: 15 },
-          1280: { slidesPerView: 6, spaceBetween: 15 },
-          1536: { slidesPerView: 7, spaceBetween: 15 },
+          768: { slidesPerView: 4, spaceBetween: 18 },
+          1024: { slidesPerView: 5, spaceBetween: 18 },
+          1280: { slidesPerView: 6, spaceBetween: 20 },
+          1536: { slidesPerView: 7, spaceBetween: 22 },
+          1920: { slidesPerView: 8, spaceBetween: 24 },
+          2560: { slidesPerView: 10, spaceBetween: 26 },
         }}
       >
         {cards.map((post, i) => (
-          <SwiperSlide key={i} className="flex justify-center overflow-visible p-1">
+          <SwiperSlide
+            key={i}
+            className="flex justify-center overflow-visible p-1"
+          >
             <a
               href={`${BASE_URL}${post.pdfLink}`}
               target="_blank"

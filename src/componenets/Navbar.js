@@ -39,12 +39,12 @@ const Navbar = () => {
 
   // ✅ Custom order
   const customOrder = [
-    "ای میگزینز",
     "اخبار الاسلام",
     "بزم ادب",
-    "باغچہ اطفال",
-    "خواتین",
     "جوانان ملت",
+    "باغچہ اطفال",
+    "ای میگزینز",
+    "خواتین",
     "مضامین", 
     "اصلاحی سلسلہ",
     "فہم و فکر",
@@ -188,27 +188,29 @@ export default function PageWithNavbarAndBanner() {
         {banners.length > 0 ? (
           <>
             
-            {banners[1] && (
-              <img
-                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${banners[1]?.url}`}
-                alt={banners[1]?.title || "Banner 1"}
-                className="rounded-[24px] w-full md:w-2/3 aspect-[16/9] object-cover cursor-pointer"
-              />
-            )}
+          
 
             
             {banners[0] && (
               <img
-                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${banners[0]?.url}`}
+                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${banners[1]?.url}`}
                 alt={banners[0]?.title || "Banner 2"}
                 className="rounded-[24px] w-full md:w-1/3 aspect-[16/9] object-cover cursor-pointer"
+              />
+            )}
+
+              {banners[1] && (
+              <img
+                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${banners[0]?.url}`}
+                alt={banners[1]?.title || "Banner 1"}
+                className="rounded-[24px] w-full md:w-2/3 aspect-[16/9] object-cover cursor-pointer"
               />
             )}
           </>
         ) : (
           <>
             
-            <img
+            {/* <img
               src="/Rectangle 205.png"
               alt="Banner 1"
               className="rounded-[24px] w-full md:w-2/3 aspect-[16/9] object-cover cursor-pointer"
@@ -217,7 +219,7 @@ export default function PageWithNavbarAndBanner() {
               src="/Rectangle 204.png"
               alt="Banner 2"
               className="rounded-[24px] w-full md:w-1/3 aspect-[16/9] object-cover cursor-pointer"
-            />
+            /> */}
           </>
         )}
       </div>

@@ -18,15 +18,15 @@ const CountrySection = ({ sub }) => {
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 1024
   );
-
-  // Window resize listener
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const cards = sub?.books || [];
+  const cards = (sub?.books || []).sort(
+    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+  );
 
   // Group cards based on screen size
   const groupedCards = useMemo(() => {
@@ -76,8 +76,8 @@ const CountrySection = ({ sub }) => {
         {/* Navigation Buttons */}
         <div
           className={`flex gap-2 ${windowWidth < 768
-              ? "justify-center mt-3 w-full"
-              : "absolute right-0 top-1/2 -translate-y-1/2"
+            ? "justify-center mt-3 w-full"
+            : "absolute right-0 top-1/2 -translate-y-1/2"
             }`}
         >
           {/* Left Button */}
@@ -142,27 +142,26 @@ const CountrySection = ({ sub }) => {
         className="w-full flex flex-col"
       >
         {groupedCards.map((group, index) => (
-        <SwiperSlide key={index} className="-px-2 sm:px-2"> {/* px-12 hata ke px-2 diya */}
-  <div
-    dir="rtl"
-    className={`grid  ${  // gap-3 ko gap-4 kar diya thodi zyada spacing ke liye
-      sub?.name === "بلاگ"
-        ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-6 gap-2"
-        : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-4 md:px-12 pt-4 pb-4"
-    }`}
-  >
-    {group.map((card, i) => (
-      <a
-        key={i}
-        href={`${process.env.NEXT_PUBLIC_API_BASE_URL}${card.pdfLink}`}
-        dir="ltr"
-        className={`rounded-xl transition duration-200 overflow-hidden
-          ${
-            sub?.name === "بلاگ"
-              ? "flex flex-row items-center justify-between bg-gray-50 w-full h-[190px] p-4 hover:shadow-md"
-              : "flex flex-row items-center justify-between bg-white px-3 py-2 w-full md:w-[240px] shadow-[0.8px_0.8px_10px_0px_#00000012] m-2" // m-2 add kiya spacing ke liye
-          }`}
-      >
+          <SwiperSlide key={index} className="-px-2 sm:px-2"> {/* px-12 hata ke px-2 diya */}
+            <div
+              dir="rtl"
+              className={`grid  ${  // gap-3 ko gap-4 kar diya thodi zyada spacing ke liye
+                sub?.name === "بلاگ"
+                  ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-6 gap-2"
+                  : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-4 md:px-12 pt-4 pb-4"
+                }`}
+            >
+              {group.map((card, i) => (
+                <a
+                  key={i}
+                  href={`${process.env.NEXT_PUBLIC_API_BASE_URL}${card.pdfLink}`}
+                  dir="ltr"
+                  className={`rounded-xl transition duration-200 overflow-hidden
+          ${sub?.name === "بلاگ"
+                      ? "flex flex-row items-center justify-between bg-gray-50 w-full h-[190px] p-4 hover:shadow-md"
+                      : "flex flex-row items-center justify-between bg-white px-3 py-2 w-full md:w-[240px] shadow-[0.8px_0.8px_10px_0px_#00000012] m-2" // m-2 add kiya spacing ke liye
+                    }`}
+                >
                   {sub?.name === "بلاگ" ? (
                     <>
                       {/* BLOG TEXT LEFT */}

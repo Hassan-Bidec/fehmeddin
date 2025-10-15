@@ -1,4 +1,5 @@
 "use client";
+
 import DawatEFikrSwiper from "@/componenets/DawatEFikrSection";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -6,50 +7,40 @@ import CountrySection from "@/componenets/CountrySection";
 import Loader from "@/componenets/Loader";
 import useCategoryStore from "@/lib/store/categoryStore";
 
-
 const DawatEFikr = ({ params }) => {
   const searchParams = useSearchParams();
   const slug = searchParams.get("slug");
-  const { categories, fetchCategories, getCategoryBySlug} = useCategoryStore();
+  const { categories, fetchCategories, getCategoryBySlug } = useCategoryStore();
   const [subCategories, setSubCategories] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   if (id) {
-  //     setLoading(true);
-
-  //     categoriesApi.getCategoriesById(id).then((res) => {
-  //       console.log("Category Data by ID:", res.data);
-  //       console.log("Direct Subcategories:", res.data.subcategories);
-  //       setSubCategories(res.data?.subcategories || []);
-  //       setLoading(false);
-
-  //     });
-  //   }
-  // }, [id]);
+  // ✅ Step 1: Fetch categories if not already loaded
   useEffect(() => {
-
-    if (categories.length === 0) {
-      fetchCategories().then(() => setLoading(false));
-    } else {
+    const loadCategories = async () => {
+      if (categories.length === 0) {
+        setLoading(true);
+        await fetchCategories();
+      }
       setLoading(false);
-    }
-console.log("Category:", categories);
+    };
+    loadCategories();
+  }, [categories.length, fetchCategories]);
 
-  }, [categories, fetchCategories]);
-
+  // ✅ Step 2: Once categories are loaded, find the current category by slug
   useEffect(() => {
-    if (!loading && slug) {
+    if (!loading && slug && categories.length > 0) {
       const category = getCategoryBySlug(slug);
-      
-        console.log('detail',getCategoryBySlug(slug))
       if (category) {
         setSubCategories(category.subcategories || []);
       }
+      setLoading(false);
     }
-    
   }, [slug, loading, categories, getCategoryBySlug]);
 
+  // ✅ Optional: If still loading subcategories
+  const isLoading = loading || subCategories.length === 0;
+
+  // ✅ Subcategory limits
   const limits = {
     "دعوت ِ فکر": 14,
     "ملک و ملت": 10,
@@ -64,7 +55,6 @@ console.log("Category:", categories);
     "تعلیم و تربیت": 14,
     "مسائل کا جواب": 10,
     "جہانِ صحت": 14,
-    
     "سیر و سیاحت": 14,
     "تاریخ  وجغرافیہ": 10,
     "سیرت و سوانح ": 14,
@@ -101,58 +91,50 @@ console.log("Category:", categories);
     "خوراک و غذا": 14,
     "بیت السلام یوتھ سوسائٹی": 10,
     "قدرتی آفات": 14,
-    "سائبان ": 10
+    "سائبان ": 10,
   };
 
   return (
-  <div className="w-full bg-white overflow-visible">
-  <div
-    className="
-      mx-auto w-full
-      px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16
-      py-10 mt-10 mb-[150px]
-    "
-    style={{
-      maxWidth: "1920px",
-      margin: "0 auto",
-      overflowX: "hidden",
-    }}
-  >
-    {loading ? (
-      <Loader />
-    ) : subCategories.length > 0 ? (
-      <div className="flex flex-col gap-16 lg:gap-20 ">
-        {subCategories.map((sub, index) => {
-          const limit = limits[sub.name] || 14;
-          const limitedBooks = sub.books ? sub.books.slice(0, limit) : [];
-          const subWithLimit = { ...sub, books: limitedBooks };
-
-          return (
-            <div key={index} className="w-full">
-              {index % 2 === 0 ? (
-                <DawatEFikrSwiper sub={subWithLimit} />
-              ) : (
-                <CountrySection sub={subWithLimit} />
-                
-              )}
-            </div>
-          );
-        })}
+    <div className="w-full bg-white overflow-visible">
+      <div
+        className="
+          mx-auto w-full
+          px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16
+          py-10 mt-10 mb-[150px]
+        "
+        style={{
+          maxWidth: "1920px",
+          margin: "0 auto",
+          overflowX: "hidden",
+        }}
+      >
+        {isLoading ? (
+          <Loader />
+        ) : subCategories.length > 0 ? (
+          <div className="flex flex-col gap-16 lg:gap-20">
+            {subCategories.map((sub, index) => {
+              const limit = limits[sub.name] || 14;
+              const limitedBooks = sub.books ? sub.books.slice(0, limit) : [];
+              const subWithLimit = { ...sub, books: limitedBooks };
+              return (
+                <div key={index} className="w-full">
+                  {index % 2 === 0 ? (
+                    <DawatEFikrSwiper sub={subWithLimit} />
+                  ) : (
+                    <CountrySection sub={subWithLimit} />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="text-center text-gray-600 text-lg py-10">
+           No Subcategories found
+          </p>
+        )}
       </div>
-    ) : (
-      <p className="text-center text-gray-600 text-lg py-10">
-        No Subcategories found
-      </p>
-    )}
-  </div>
-</div>
-
-
-
-
+    </div>
   );
-
-
 };
 
 export default DawatEFikr;
