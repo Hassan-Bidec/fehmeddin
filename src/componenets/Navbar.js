@@ -2,12 +2,11 @@
 
 import { FaHome } from "react-icons/fa";
 import Link from "next/link";
-import { HiMenu, HiX } from "react-icons/hi"; 
+import { HiMenu, HiX } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { categoriesApi } from "@/lib/api/category";
 import { usePathname } from "next/navigation";
 import useCategoryStore from "@/lib/store/categoryStore";
-
 
 // ✅ Loader Component
 const LoaderBar = () => {
@@ -16,9 +15,15 @@ const LoaderBar = () => {
       <div className="h-full w-1/3 bg-gradient-to-r from-[#1CAAF6] via-[#8E2C62] to-[#5D1F42] animate-loader" />
       <style jsx>{`
         @keyframes loader {
-          0% { transform: translateX(-100%); }
-          50% { transform: translateX(0%); }
-          100% { transform: translateX(300%); }
+          0% {
+            transform: translateX(-100%);
+          }
+          50% {
+            transform: translateX(0%);
+          }
+          100% {
+            transform: translateX(300%);
+          }
         }
         .animate-loader {
           animation: loader 1.5s linear infinite;
@@ -28,7 +33,6 @@ const LoaderBar = () => {
   );
 };
 
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -36,24 +40,6 @@ const Navbar = () => {
 
   const { categories, fetchCategories } = useCategoryStore();
   const [loading, setLoading] = useState(true);
-
-  // ✅ Custom order
-  const customOrder = [
-    "اخبار الاسلام",
-    "بزم ادب",
-    "جوانان ملت",
-    "باغچہ اطفال",
-    "ای میگزینز",
-    "خواتین",
-    "مضامین", 
-    "اصلاحی سلسلہ",
-    "فہم و فکر",
-  ];
-
-  // ✅ sort categories
-  const sortedCategories = [...categories].sort(
-    (a, b) => customOrder.indexOf(a.name) - customOrder.indexOf(b.name)
-  );
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -64,6 +50,9 @@ const Navbar = () => {
     loadCategories();
   }, [fetchCategories]);
 
+  // ✅ Sort categories by ID (Highest → Lowest)
+  const sortedCategories = [...categories].sort((a, b) => b.id - a.id);
+
   const handleCategoryClick = (id) => {
     console.log("Selected Category ID:", id);
     setIsOpen(false);
@@ -71,11 +60,10 @@ const Navbar = () => {
 
   return (
     <div className="relative">
-      {/* ✅ Loader dikhega jab categories loading mai hain */}
+      {/* ✅ Loader shown while categories are loading */}
       {loading && <LoaderBar />}
 
       <div className="bg-gradient-to-r from-[#8E2C62] to-[#5D1F42] text-white px-2 md:px-4 py-3 flex flex-col md:flex-row justify-between items-center rtl text-[18px] gap-3">
-        
         {/* Mobile Menu Button */}
         <button className="md:hidden text-3xl" onClick={() => setIsOpen(true)}>
           <HiMenu />
@@ -89,7 +77,7 @@ const Navbar = () => {
               <Link
                 onClick={() => handleCategoryClick(item.id)}
                 key={idx}
-                href={`${item.href}?slug=${item.slug}`} 
+                href={`${item.href}?slug=${item.slug}`}
               >
                 <span className="relative px-2 md:px-3 cursor-pointer inline-block">
                   {item.name}
@@ -166,7 +154,6 @@ const Navbar = () => {
   );
 };
 
-
 export default function PageWithNavbarAndBanner() {
   const [banners, setBanners] = useState([]);
 
@@ -183,14 +170,11 @@ export default function PageWithNavbarAndBanner() {
     <div>
       {/* Navbar */}
       <Navbar />
+
       {/* Banner Section */}
       <div className="container mx-auto flex flex-col md:flex-row gap-4 mt-6 md:mt-8 px-4">
         {banners.length > 0 ? (
           <>
-            
-          
-
-            
             {banners[0] && (
               <img
                 src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${banners[1]?.url}`}
@@ -199,7 +183,7 @@ export default function PageWithNavbarAndBanner() {
               />
             )}
 
-              {banners[1] && (
+            {banners[1] && (
               <img
                 src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${banners[0]?.url}`}
                 alt={banners[1]?.title || "Banner 1"}
@@ -208,19 +192,7 @@ export default function PageWithNavbarAndBanner() {
             )}
           </>
         ) : (
-          <>
-            
-            {/* <img
-              src="/Rectangle 205.png"
-              alt="Banner 1"
-              className="rounded-[24px] w-full md:w-2/3 aspect-[16/9] object-cover cursor-pointer"
-            />
-            <img
-              src="/Rectangle 204.png"
-              alt="Banner 2"
-              className="rounded-[24px] w-full md:w-1/3 aspect-[16/9] object-cover cursor-pointer"
-            /> */}
-          </>
+          <></>
         )}
       </div>
     </div>
