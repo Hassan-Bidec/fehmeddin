@@ -225,6 +225,7 @@ import { useEffect, useState } from "react";
 import { categoriesApi } from "@/lib/api/category";
 import { toast } from "react-toastify";
 import useContactStore from "@/lib/store/useContactStore";
+import Link from "next/link";
 
 export default function Footer() {
   // const [email, setEmail] = useState("");
@@ -331,13 +332,13 @@ export default function Footer() {
                 <h4 className="font-bold mb-2">ہم سے جُڑیں</h4>
                 <div className="flex gap-3">
                   {baitussalamLinks.map((item) => (
-                    <a key={item.id} href={item.url} target="_blank">
+                    <Link key={item.id} href={item.url} target="_blank">
                       <img
                         src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${item.logo}`}
                         alt={item.platform}
                         className="w-5 h-5"
                       />
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -418,13 +419,13 @@ export default function Footer() {
                 <span className="text-xs">کوئی لنک موجود نہیں</span>
               )} */}
               {fehmeddinLinks.map((item) => (
-                <a key={item.id} href={item.url} target="_blank">
+                <Link key={item.id} href={item.url} target="_blank">
                   <img
                     src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${item.logo}`}
                     alt={item.platform}
                     className="w-5 h-5"
                   />
-                </a>
+                </Link>
               ))}
             </div>
           </div>

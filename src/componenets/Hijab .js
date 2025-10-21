@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Hijab({ books = [], title }) {
   return (
     <div className="-mt-10">
@@ -16,9 +18,9 @@ export default function Hijab({ books = [], title }) {
                    gap-x-3 gap-y-3 justify-start px-2 sm:px-0 "
       >
         {books.slice(0, 18).map((post, i) => (
-          <a
+          <Link
             key={i}
-            href={`${process.env.NEXT_PUBLIC_API_BASE_URL}${post.pdfLink}`}
+            href={`/book/${post.slug}`}
             dir="ltr"
             className="shadow-[0.8px_0.8px_10px_0px_#00000012] rounded-xl 
                        w-full transition duration-200 flex flex-row items-center justify-between 
@@ -38,7 +40,7 @@ export default function Hijab({ books = [], title }) {
               <h4 className="font-medium text-[16px] mb-1 line-clamp-2 text-black">{post.name}</h4>
               <p className="text-sm line-clamp-3 text-gray-800">{post.description}</p>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </div>

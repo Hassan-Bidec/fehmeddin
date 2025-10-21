@@ -112,6 +112,7 @@
 // }
 
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function KhasoosiTahriren({ books = [], title }) {
@@ -170,10 +171,10 @@ export default function KhasoosiTahriren({ books = [], title }) {
   "
 >
   {books.slice(0, visibleCount).map((post, i) => (
-    <a
+    <Link
       key={i}
-      href={`${process.env.NEXT_PUBLIC_API_BASE_URL}${post.pdfLink}`}
-      target="_blank"
+       href={`/book/${post.slug}`}
+      
       rel="noopener noreferrer"
       className="flex bg-white rounded-lg shadow-[0.8px_0.8px_10px_0px_#00000012] p-2.5 items-start gap-4 hover:shadow-md transition"
     >
@@ -201,7 +202,7 @@ export default function KhasoosiTahriren({ books = [], title }) {
         alt={post.title}
         className="w-21 h-22 rounded-[11px] object-cover"
       />
-    </a>
+    </Link>
   ))}
 </div>
 

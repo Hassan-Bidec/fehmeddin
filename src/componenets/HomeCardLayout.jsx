@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react'
 
 const HomeCardLayout = ({ books = [], title }) => {
@@ -6,13 +7,13 @@ const HomeCardLayout = ({ books = [], title }) => {
     <div className="">
       {/* Section Header */}
       <div className="flex w-full justify-end">
-  <h2
-    className="bg-gradient-to-r from-[#8E2C62] to-[#5D1F42] text-white
+        <h2
+          className="bg-gradient-to-r from-[#8E2C62] to-[#5D1F42] text-white
       px-6 py-3 rounded-l-full text-xl sm:text-2xl mt-10 mb-2 font-bold inline-block whitespace-nowrap mr-2 md:mr-4"
-  >
-    {title}
-  </h2>
-</div>
+        >
+          {title}
+        </h2>
+      </div>
 
 
       <div
@@ -21,13 +22,13 @@ const HomeCardLayout = ({ books = [], title }) => {
                    justify-items-center md:justify-items-start"
       >
         {books.slice(0, 15).map((post, i) => (
-          <a
-            href={`${BASE_URL}${post.pdfLink}`}
+          <Link
+            href={`/book/${post.slug}`}
             key={i}
             className="flex flex-col items-center text-right w-full max-w-[240px] 
-                       mx-auto md:mx-0 md:mr-5"
+               mx-auto md:mx-0 md:mr-5"
           >
-            <div className="w-full p-1 h-[310px] rounded-lg shadow-[1.32px_1.32px_19.78px_0px_#00000012]  flex flex-col">
+            <div className="w-full p-1 h-[310px] rounded-lg shadow-[1.32px_1.32px_19.78px_0px_#00000012] flex flex-col">
               {/* Image */}
               <img
                 src={`${BASE_URL}${post.image}`}
@@ -43,7 +44,7 @@ const HomeCardLayout = ({ books = [], title }) => {
                 </p>
               </div>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </div>

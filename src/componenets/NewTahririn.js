@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function NewTahririn({ books = [], title }) {
   return (
     <div className="mt-10 -sm:px-7 ">
@@ -29,9 +31,9 @@ export default function NewTahririn({ books = [], title }) {
             key={i}
             className="flex flex-col items-center text-right"
           >
-    <a
-  href={`${process.env.NEXT_PUBLIC_API_BASE_URL}${post.pdfLink}`}
-  target="_blank"
+    <Link
+  href={`/book/${post.slug}`}
+  
   rel="noopener noreferrer"
   className="md:w-[200px] w-full p-1 h-[250px] rounded-md flex flex-col shadow-[1.32px_1.32px_19.78px_0px_#00000012] gap-x-3"
 >
@@ -49,7 +51,7 @@ export default function NewTahririn({ books = [], title }) {
                   {post.description}
                 </p>
               </div>
-            </a>
+            </Link>
           </div>
         ))}
       </div>

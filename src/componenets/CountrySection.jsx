@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import "swiper/css";
 import { Archivo_Black } from "next/font/google";
+import Link from "next/link";
 
 // const archivoBlack = Archivo_Black({
 //   subsets: ["latin"],
@@ -152,12 +153,12 @@ const CountrySection = ({ sub }) => {
                 }`}
             >
               {group.map((card, i) => (
-                <a
+                <Link
                   key={i}
-                  href={`${process.env.NEXT_PUBLIC_API_BASE_URL}${card.pdfLink}`}
+                  href={`/book/${card.slug}`}
                   dir="ltr"
                   className={`rounded-xl transition duration-200 overflow-hidden
-          ${sub?.name === "بلاگ"
+                  ${sub?.name === "بلاگ"
                       ? "flex flex-row items-center justify-between bg-gray-50 w-full h-[190px] p-4 hover:shadow-md"
                       : "flex flex-row items-center justify-between bg-white px-3 py-2 w-full md:w-[240px] shadow-[0.8px_0.8px_10px_0px_#00000012] m-2" // m-2 add kiya spacing ke liye
                     }`}
@@ -203,7 +204,7 @@ const CountrySection = ({ sub }) => {
                       </div>
                     </>
                   )}
-                </a>
+                </Link>
 
               ))}
             </div>

@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import "swiper/css";
+import Link from "next/link";
 
 const DawatEFikrSwiper = ({ sub }) => {
   const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -121,9 +122,9 @@ const DawatEFikrSwiper = ({ sub }) => {
             key={i}
             className="flex justify-center overflow-visible p-1"
           >
-            <a
-              href={`${BASE_URL}${post.pdfLink}`}
-              target="_blank"
+            <Link
+              href={`/book/${post.slug}`}
+            
               rel="noopener noreferrer"
               className="flex flex-col items-center text-right w-full max-w-[240px] mx-auto md:mx-0 md:mr-5"
             >
@@ -149,7 +150,7 @@ const DawatEFikrSwiper = ({ sub }) => {
                   </p>
                 </div>
               </div>
-            </a>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

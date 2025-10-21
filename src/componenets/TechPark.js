@@ -154,7 +154,5 @@ export default function TechPark() {
 </div>
 
 </div>
-
-
   );
 }
