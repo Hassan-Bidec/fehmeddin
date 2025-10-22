@@ -47,8 +47,8 @@ const DawatEFikrSwiper = ({ sub }) => {
         {/* --- Navigation Buttons --- */}
         <div
           className={`flex gap-2 transition-all duration-300 ${windowWidth < 768
-              ? "justify-center mt-3 w-full"
-              : "absolute right-0 top-1/2 -translate-y-1/2"
+            ? "justify-center mt-3 w-full"
+            : "absolute right-0 top-1/2 -translate-y-1/2"
             }`}
         >
           <button
@@ -124,7 +124,7 @@ const DawatEFikrSwiper = ({ sub }) => {
           >
             <Link
               href={`/book/${post.slug}`}
-            
+
               rel="noopener noreferrer"
               className="flex flex-col items-center text-right w-full max-w-[240px] mx-auto md:mx-0 md:mr-5"
             >

@@ -17,7 +17,7 @@ export default function NewTahririn({ books = [], title }) {
   className="
     mt-6 grid grid-cols-2
     sm:grid-cols-2
-    md:grid-cols-3 md:w-full 
+    md:grid-cols-4 md:w-full 
     lg:grid-cols-4 lg:w-full lg:gap-x-25 lg:px-0 lg:-ml-10
     gap-3
     [@media(min-width:1026px)_and_(max-width:1279px)]:grid-cols-3 

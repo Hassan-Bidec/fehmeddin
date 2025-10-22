@@ -1,10 +1,9 @@
 "use client";
 
-import axiosClient from "@/lib/api/axiosClient";
-import useContactStore from "@/lib/store/useContactStore";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import useContactStore from "@/lib/store/useContactStore";
 
 export default function Header() {
   const [dateData, setDateData] = useState(null);
@@ -14,7 +13,9 @@ export default function Header() {
   useEffect(() => {
     async function fetchDate() {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}dates/current-dates`);
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}dates/current-dates`
+        );
         setDateData(response.data);
       } catch (error) {
         console.log("Error fetching date:", error);
@@ -29,35 +30,37 @@ export default function Header() {
   }, [contactInfo, fetchContactInfo]);
 
   return (
-    <div className="w-full">
-      {/* Top Header */}
-      <div className="bg-[#0093e0] text-white px-4 flex flex-col md:flex-row justify-between items-center rtl gap-3">
-        <div className="text-center md:text-right leading-tight">
-          <p className="text-[20px] mt-2 mb-1">
+    <header className="w-full bg-[#0093e0] text-white px-4 py-3">
+      <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-3 md:gap-6">
+        {/* 🔹 Left Section (Name + Date) */}
+        <div className="text-center md:text-left leading-tight">
+          <p className="text-[18px] md:text-[20px] font-semibold">
             زیر سرپرستی: حضرت مولانا عبد الستار حفظہ اللہ
           </p>
 
-          <p
-            className="text-[16px] flex items-center justify-end gap-2"
-            dir="rtl"
-          >
+          <p className="text-[15px] md:text-[16px] flex items-center justify-center md:justify-start gap-2 mt-1">
             <FaRegCalendarAlt className="text-white text-[16px]" />
-            {dateData?.hijri && dateData?.gregorian
-              ? `${dateData.hijri.date} ${dateData.hijri.month} ${dateData.hijri.year}, ${dateData.gregorian.date} ${dateData.gregorian.month} ${dateData.gregorian.year}`
-              : "Loading..."}
+            {dateData?.hijri && dateData?.gregorian ? (
+              `${dateData.hijri.date} ${dateData.hijri.month} ${dateData.hijri.year}, 
+              ${dateData.gregorian.date} ${dateData.gregorian.month} ${dateData.gregorian.year}`
+            ) : (
+              "Loading..."
+            )}
           </p>
         </div>
 
-        <div className="text-center md:text-right">
-          {contactInfo?.logo && (
-            <img
-              src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${contactInfo.logo}`}
-              alt="Logo"
-              className="md:h-14 mt-2 object-contain mx-auto md:mx-0"
-            />
-          )}
-        </div>
+        {/* 🔹 Right Section (Logo) */}
+        {/* {contactInfo?.logo && ( */}
+          <div className="flex justify-center md:justify-end w-full md:w-auto">
+  <img
+    src="/logo.png"
+    alt="Logo"
+    className="h-8 md:h-12 object-contain"
+  />
+</div>
+
+        {/* )} */}
       </div>
-    </div>
+    </header>
   );
 }

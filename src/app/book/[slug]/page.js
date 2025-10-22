@@ -4,17 +4,17 @@ import { notFound } from "next/navigation";
 
 export default async function BookDetails({ params }) {
   const { slug } = params; // ✅ no need to await
-  console.log("slug:", slug);
+  // console.log("slug:", slug);
 
   try {
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}books/list`);
     const allBooks = res.data?.data || [];
-    console.log("allBooks:", allBooks);
+    // console.log("allBooks:", allBooks);
 
     const decodedSlug = decodeURIComponent(slug);
     const book = allBooks.find((b) => b.slug === decodedSlug);
 
-    console.log("book found:", book);
+    // console.log("book found:", book);
 
     // ✅ 3. Handle missing case
     if (!book) return notFound();

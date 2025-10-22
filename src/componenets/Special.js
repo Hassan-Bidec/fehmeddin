@@ -116,7 +116,6 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function KhasoosiTahriren({ books = [], title }) {
-  // Default visible count depending on title
   const [visibleCount, setVisibleCount] = useState(
     title === "خصوصی تحریریں"
       ? 15
@@ -131,10 +130,8 @@ export default function KhasoosiTahriren({ books = [], title }) {
 
   const handleToggle = () => {
     if (visibleCount < books.length) {
-      // Show all books
       setVisibleCount(books.length);
     } else {
-      // Reset back depending on title
       setVisibleCount(
         title === "خصوصی تحریریں"
           ? 15
@@ -153,7 +150,8 @@ export default function KhasoosiTahriren({ books = [], title }) {
     <div className="">
       <div
         className={`
-          md:w-[full] lg:w-86 md:p-3 p-5 w-full h-auto rounded-xl
+          w-full h-auto rounded-xl md:p-3 p-5
+          lg:w-86
           ${title === "خصوصی تحریریں" ? "bg-[#F5F5F5]" : ""}
           [@media(min-width:1026px)_and_(max-width:1279px)]:w-72
         `}
@@ -163,69 +161,78 @@ export default function KhasoosiTahriren({ books = [], title }) {
           {title}
         </h2>
 
-        {/* Books List */}
+        {/* Books Grid */}
       <div
   className="
-    space-y-5 lg:w-76 md:[700px]
+    grid 
+    md:grid-cols-2 
+    lg:grid-cols-1 
+    justify-center 
+    md:justify-center 
+    lg:justify-start 
+    
+    space-y-3 
+    lg:w-76 
     [@media(min-width:1026px)_and_(max-width:1279px)]:w-64
   "
 >
-  {books.slice(0, visibleCount).map((post, i) => (
-    <Link
-      key={i}
-       href={`/book/${post.slug}`}
-      
-      rel="noopener noreferrer"
-      className="flex bg-white rounded-lg shadow-[0.8px_0.8px_10px_0px_#00000012] p-2.5 items-start gap-4 hover:shadow-md transition"
-    >
-      {/* Text Content */}
-      <div className="flex-1 text-right">
-        {/* Date & Title Row */}
-        <div className="flex justify-between items-center mb-1">
-          {/* Date Badge */}
-          <div className="bg-gradient-to-r from-[#8E2C62] -ml-2 to-[#5D1F42] text-white px-2 py-[3px] rounded-r-[20px] text-[13px]">
-            {post.created_at}
-          </div>
 
-          {/* Title */}
-          <h3 className="mt-3 font-medium text-gray-800 text-[15.5px]">
-            {post.name}
-          </h3>
+          {books.slice(0, visibleCount).map((post, i) => (
+            <Link
+              key={i}
+              href={`/book/${post.slug}`}
+              rel="noopener noreferrer"
+              className="
+                flex bg-white rounded-lg shadow-[0.8px_0.8px_10px_0px_#00000012]
+                p-2.5 items-start gap-4 hover:shadow-md transition h-[117]
+              "
+            >
+              {/* Text Content */}
+              <div className="flex-1 text-right">
+                <div className="flex justify-between items-center mb-1">
+                  <div className="bg-gradient-to-r from-[#8E2C62] to-[#5D1F42] text-white px-2 py-[3px] rounded-r-[20px] text-[13px]">
+                    {post.created_at}
+                  </div>
+
+                  <h3 className="mt-3 font-medium text-gray-800 text-[15.5px]">
+                    {post.name}
+                  </h3>
+                </div>
+
+                <p className="text-gray-600 mt-1.5 text-[13.5px]">
+                  {post.description}
+                </p>
+              </div>
+
+              {/* Image */}
+              <img
+                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${post.image}`}
+                alt={post.title}
+                className="w-21 h-21 rounded-[11px] object-cover"
+              />
+            </Link>
+          ))}
         </div>
 
-        {/* Description */}
-        <p className="text-gray-600 mt-1.5 text-[13.5px]">{post.description}</p>
-      </div>
-
-      <img
-        src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${post.image}`}
-        alt={post.title}
-        className="w-21 h-22 rounded-[11px] object-cover"
-      />
-    </Link>
-  ))}
-</div>
-
-
-       {title !== "خصوصی تحریریں" &&
- books.length >
-  (title === "سیر و تفریح"
-    ? 1
-    : title === "چمکتے تارے"
-    ? 5
-    : title === "گلشن تبسم"
-    ? 3
-    : 2) && (
-    <div className="text-center mt-4">
-      <button
-        onClick={handleToggle}
-        className="px-4 py-2 bg-gradient-to-r from-[#8E2C62] to-[#5D1F42] text-white rounded-[30.93px] shadow hover:bg-[#8E2C62] transition"
-      >
-        {visibleCount < books.length ? "مزید دیکھیں" : "کم دیکھیں"}
-      </button>
-    </div>
-)}
-
+        {/* Toggle Button */}
+        {title !== "خصوصی تحریریں" &&
+          books.length >
+            (title === "سیر و تفریح"
+              ? 1
+              : title === "چمکتے تارے"
+              ? 5
+              : title === "گلشن تبسم"
+              ? 3
+              : 2) && (
+            <div className="text-center mt-4">
+              <button
+                onClick={handleToggle}
+                className="px-4 py-2 bg-gradient-to-r from-[#8E2C62] to-[#5D1F42] text-white rounded-[30.93px] shadow hover:bg-[#8E2C62] transition"
+              >
+                {visibleCount < books.length ? "مزید دیکھیں" : "کم دیکھیں"}
+              </button>
+            </div>
+          )}
       </div>
     </div>
   );

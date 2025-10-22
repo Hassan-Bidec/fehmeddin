@@ -54,103 +54,108 @@ const Navbar = () => {
   const sortedCategories = [...categories].sort((a, b) => b.id - a.id);
 
   const handleCategoryClick = (id) => {
-    console.log("Selected Category ID:", id);
+    // console.log("Selected Category ID:", id);
     setIsOpen(false);
   };
 
   return (
     <div className="relative">
-      {/* ✅ Loader shown while categories are loading */}
-      {loading && <LoaderBar />}
+  {/* ✅ Loader shown while categories are loading */}
+  {loading && <LoaderBar />}
 
-      <div className="bg-gradient-to-r from-[#8E2C62] to-[#5D1F42] text-white px-2 md:px-4 py-3 flex flex-col md:flex-row justify-between items-center rtl text-[18px] gap-3">
-        {/* Mobile Menu Button */}
-        <button className="md:hidden text-3xl" onClick={() => setIsOpen(true)}>
-          <HiMenu />
-        </button>
+    <div className="bg-gradient-to-r from-[#8E2C62] to-[#5D1F42] text-white px-2 md:px-4 py-3 flex items-center justify-between rtl text-[18px]">
+    {/* ✅ Left Section (Categories) */}
+    <div className="hidden md:flex flex-wrap justify-start rtl divide-x divide-white/60 text-center space-x-reverse">
+      {sortedCategories.slice(0, 10).map((item, idx) => {
+        const isActive = decodedPath === item.href;
+        return (
+          <Link
+            onClick={() => handleCategoryClick(item.id)}
+            key={idx}
+            href={`${item.href}?slug=${item.slug}`}
+          >
+            <span className="relative px-2 md:px-3 cursor-pointer inline-block">
+              {item.name}
+              {isActive && (
+                <span className="absolute left-0 right-10 top-[38px] -bottom-1 mx-auto h-[3px] w-full bg-[#1CAAF6] rounded-full"></span>
+              )}
+            </span>
+          </Link>
+        );
+      })}
+    </div>
 
-        {/* ✅ Desktop Categories */}
-        <div className="hidden md:flex flex-wrap justify-center md:justify-start rtl divide-x divide-white/60 text-center space-x-reverse">
-          {sortedCategories.slice(0, 10).map((item, idx) => {
-            const isActive = decodedPath === item.href;
-            return (
-              <Link
-                onClick={() => handleCategoryClick(item.id)}
-                key={idx}
-                href={`${item.href}?slug=${item.slug}`}
-              >
-                <span className="relative px-2 md:px-3 cursor-pointer inline-block">
-                  {item.name}
-                  {isActive && (
-                    <span className="absolute left-0 right-10 top-[38px] -bottom-1 mx-auto h-[3px] w-full bg-[#1CAAF6] rounded-full"></span>
-                  )}
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* Home Link */}
-        <Link href="/">
-          <div className="relative flex items-center gap-1 md:gap-2 px-2 cursor-pointer">
-            <span className="text-[20px]">ہوم پیج</span>
-            <FaHome className="text-lg md:text-xl" />
-            {pathname === "/" && (
-              <span className="absolute left-0 right-10 top-[38px] -bottom-1 mx-auto h-[3px] w-full bg-[#1CAAF6] rounded-full"></span>
-            )}
-          </div>
-        </Link>
-
-        {/* ✅ Mobile Sidebar Drawer */}
-        {isOpen && (
-          <div className="fixed inset-0 z-50 flex md:hidden">
-            {/* Overlay */}
-            <div
-              className="absolute inset-0 bg-black/50"
-              onClick={() => setIsOpen(false)}
-            ></div>
-
-            {/* Sidebar */}
-            <div className="relative bg-[#72253e] w-64 p-5 space-y-6 text-white animate-slide-in">
-              {/* Close button */}
-              <button
-                className="absolute top-3 right-3 text-3xl"
-                onClick={() => setIsOpen(false)}
-              >
-                <HiX />
-              </button>
-
-              {/* Home link */}
-              <Link
-                href="/"
-                onClick={() => setIsOpen(false)}
-                className={`block text-lg ${
-                  pathname === "/" ? "text-[#1CAAF6]" : ""
-                }`}
-              >
-                ہوم پیج
-              </Link>
-
-              {sortedCategories.slice(0, 8).map((item) => {
-                const isActive = decodedPath === item.href;
-                return (
-                  <Link
-                    key={item.id}
-                    href={`${item.href}?slug=${item.slug}`}
-                    onClick={() => handleCategoryClick(item.id)}
-                    className={`block text-lg ${
-                      isActive ? "text-[#1CAAF6]" : ""
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
+    {/* ✅ Right Section (Home Link) */}
+    <Link href="/">
+      <div className="relative flex items-center gap-1 md:gap-2 px-2 cursor-pointer">
+        <span className="text-[20px]">ہوم پیج</span>
+        <FaHome className="text-lg md:text-xl" />
+        {pathname === "/" && (
+          <span className="absolute left-0 right-10 top-[38px] -bottom-1 mx-auto h-[3px] w-full bg-[#1CAAF6] rounded-full"></span>
         )}
       </div>
+    </Link>
+
+    {/* ✅ Mobile Menu Icon (Right Side) */}
+    <button
+      className="md:hidden text-3xl"
+      onClick={() => setIsOpen(true)}
+    >
+      <HiMenu />
+    </button>
+  </div>
+
+
+  {/* ✅ Mobile Sidebar Drawer */}
+  {isOpen && (
+    <div className="fixed inset-0 z-50 flex md:hidden">
+      {/* Overlay */}
+      <div
+        className="absolute inset-0 bg-black/50"
+        onClick={() => setIsOpen(false)}
+      ></div>
+
+      {/* Sidebar */}
+      <div className="relative bg-[#72253e] w-64 p-5 space-y-6 text-white animate-slide-in">
+        {/* Close button */}
+        <button
+          className="absolute top-3 right-3 text-3xl"
+          onClick={() => setIsOpen(false)}
+        >
+          <HiX />
+        </button>
+
+        {/* Home link */}
+        <Link
+          href="/"
+          onClick={() => setIsOpen(false)}
+          className={`block text-lg ${
+            pathname === "/" ? "text-[#1CAAF6]" : ""
+          }`}
+        >
+          ہوم پیج
+        </Link>
+
+        {sortedCategories.slice(0, 8).map((item) => {
+          const isActive = decodedPath === item.href;
+          return (
+            <Link
+              key={item.id}
+              href={`${item.href}?slug=${item.slug}`}
+              onClick={() => handleCategoryClick(item.id)}
+              className={`block text-lg ${
+                isActive ? "text-[#1CAAF6]" : ""
+              }`}
+            >
+              {item.name}
+            </Link>
+          );
+        })}
+      </div>
     </div>
+  )}
+</div>
+
   );
 };
 

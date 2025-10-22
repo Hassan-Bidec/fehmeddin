@@ -68,9 +68,9 @@ const useCategoryStore = create((set, get) => ({
   },
 
   getCategoryBySlug: (slug) => {
-    console.log('slu',slug)
+    // console.log('slu',slug)
     const categories = get().categories;
-    console.log('cate',categories)
+    // console.log('cate',categories)
     const category = categories.find((cat) => cat.slug == slug);
     return category
   },

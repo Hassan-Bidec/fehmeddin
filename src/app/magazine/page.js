@@ -231,7 +231,7 @@ const Page = () => {
       setYearWiseData(payload);
             setLoading(false); // stop loader
 
-      console.log("YearWiseData:", payload);
+      // console.log("YearWiseData:", payload);
     });
   };
 

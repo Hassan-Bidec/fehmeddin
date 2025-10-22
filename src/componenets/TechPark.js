@@ -8,10 +8,10 @@ export default function TechPark() {
 
   useEffect(() => {
   categoriesApi.Banner().then((res) => {
-    console.log("API Response 👉", res.data);
+    // console.log("API Response 👉", res.data);
 
     if (Array.isArray(res.data)) {
-      console.log("Gallery Data 👉", res.data);
+      // console.log("Gallery Data 👉", res.data);
       setGallery(res.data);
     }
   });

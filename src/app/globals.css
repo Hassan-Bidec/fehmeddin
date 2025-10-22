@@ -10,9 +10,11 @@
 @font-face {
   font-family: "Alvi Nastaleeq";
   src: url("/fonts/AlviNastaleeq-Regular.ttf") format("truetype");
-  font-weight: 400;
+  font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
+
 /* Root colors */
 :root {
   --background: #ffffff;
@@ -39,6 +41,7 @@
 body {
   font-family: 'Alvi Nastaleeq', serif;
   background: var(--background);
+   /* font-family: "Alvi Nastaleeq", serif; */
   color: var(--foreground);
     overflow-x: hidden;
 }

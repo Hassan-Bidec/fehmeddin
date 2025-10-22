@@ -18,7 +18,7 @@ const HomeCardLayout = ({ books = [], title }) => {
 
       <div
         dir="rtl"
-        className="mt-6 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 
+        className="mt-6 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 
                    justify-items-center md:justify-items-start"
       >
         {books.slice(0, 15).map((post, i) => (
