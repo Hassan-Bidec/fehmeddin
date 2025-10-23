@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import useContactStore from "@/lib/store/useContactStore";
-
+import logo from '../../public/logo.png'
 export default function Header() {
   const [dateData, setDateData] = useState(null);
   const { contactInfo, fetchContactInfo } = useContactStore();
@@ -53,7 +53,7 @@ export default function Header() {
         {/* {contactInfo?.logo && ( */}
         <div className="flex justify-center md:justify-end w-full md:w-auto">
           <img
-            src="/logo.png"
+            src={logo}
             alt="logo"
             className="h-8 md:h-12 object-contain"
           />
