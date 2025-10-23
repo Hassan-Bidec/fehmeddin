@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import useContactStore from "@/lib/store/useContactStore";
-import logo from '../../public/logo.png'
+import logo from '../../public/lFehmedeenlogo.png'
 import Image from "next/image";
 export default function Header() {
   const [dateData, setDateData] = useState(null);
@@ -59,8 +59,6 @@ export default function Header() {
             className="h-8 md:h-12 object-contain -mr-7"
           />
         </div>
-
-        {/* )} */}
       </div>
     </header>
   );
