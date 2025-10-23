@@ -51,13 +51,13 @@ export default function Header() {
 
         {/* 🔹 Right Section (Logo) */}
         {/* {contactInfo?.logo && ( */}
-          <div className="flex justify-center md:justify-end w-full md:w-auto">
-  <img
-    src="/logo.png"
-    alt="Logo"
-    className="h-8 md:h-12 object-contain"
-  />
-</div>
+        <div className="flex justify-center md:justify-end w-full md:w-auto">
+          <img
+            src="/logo.png"
+            alt="logo"
+            className="h-8 md:h-12 object-contain"
+          />
+        </div>
 
         {/* )} */}
       </div>
