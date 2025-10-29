@@ -39,19 +39,21 @@ export default function Header() {
             زیر سرپرستی: حضرت مولانا عبد الستار حفظہ اللہ
           </p>
 
-          <p className="text-[15px] md:text-[16px] flex items-center justify-center md:justify-start gap-2 mt-1">
-            <FaRegCalendarAlt className="text-white text-[16px]" />
-            {dateData?.hijri && dateData?.gregorian ? (
-              `${dateData.hijri.date} ${dateData.hijri.month} ${dateData.hijri.year}, 
-              ${dateData.gregorian.date} ${dateData.gregorian.month} ${dateData.gregorian.year}`
-            ) : (
-              "Loading..."
-            )}
-          </p>
+         <p className="text-[15px] md:text-[16px] flex items-center justify-center md:justify-start mt-1">
+  {dateData?.hijri && dateData?.gregorian ? (
+    <>
+      {`${dateData.hijri.month}  ${dateData.hijri.year} ھ , ${dateData.gregorian.date} ${dateData.gregorian.month} ${dateData.gregorian.year} `}
+      <span className="rtl px-1">{dateData.hijri.date}</span>
+    </>
+  ) : (
+    "Loading..."
+  )}
+  <FaRegCalendarAlt className="text-white text-[16px]" />
+</p>
+
+
         </div>
 
-        {/* 🔹 Right Section (Logo) */}
-        {/* {contactInfo?.logo && ( */}
         <div className="flex justify-center md:justify-end  w-full md:w-auto">
           <Image
             src={logo}

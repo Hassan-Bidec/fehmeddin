@@ -387,7 +387,7 @@ export default function Footer() {
 
           {/* لوگو سیکشن */}
           <div className="flex flex-col">
-            <img src="/Logo 1.png" alt="لوگو" className="mb-3 w-40" />
+            <img src="/lFehmedeenlogo.png" alt="لوگو" className="mb-3 w-40" />
             <p className="text-[16px] mb-6 leading-5">
               بیت السلام ویلفیئر ٹرسٹ (BWT) کراچی، <br />
               پاکستان میں ایک غیر منافع بخش <br />
