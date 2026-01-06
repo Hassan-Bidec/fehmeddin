@@ -90,7 +90,7 @@ export default function TechPark() {
     <div className="w-full flex flex-col gap-3">
       {images[0] && (
         <img
-          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${images[0].url}`}
+          src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${images[0].url}`}
           alt={images[0].title}
           className="rounded-lg w-full h-[160px] md:h-[160px] object-cover"
         />
@@ -99,14 +99,14 @@ export default function TechPark() {
       <div className="grid grid-cols-2 gap-2 w-full">
         {images[1] && (
           <img
-            src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${images[1].url}`}
+            src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${images[1].url}`}
             alt={images[1].title}
             className="rounded-lg w-full h-[120px] md:h-[130px] object-cover"
           />
         )}
         {images[2] && (
           <img
-            src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${images[2].url}`}
+            src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${images[2].url}`}
             alt={images[2].title}
             className="rounded-lg w-full h-[120px] md:h-[130px] object-cover"
           />
@@ -118,7 +118,7 @@ export default function TechPark() {
     <div className="col-span-1">
       {images[3] && (
         <img
-          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${images[3].url}`}
+          src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${images[3].url}`}
           alt={images[3].title}
           className="rounded-lg w-full h-[280px] md:h-[300px] object-cover"
         />
@@ -146,7 +146,7 @@ export default function TechPark() {
  <div className="w-full mt-4">
   {images[4] && (
     <img
-      src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${images[4].url}`}
+      src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${images[4].url}`}
       alt={images[4].title}
       className="w-full h-[90px] md:h-[100px] object-fill rounded-lg"
     />

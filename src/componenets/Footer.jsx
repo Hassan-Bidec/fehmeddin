@@ -240,8 +240,10 @@ export default function Footer() {
       try {
         const res = await categoriesApi.Sociallinks();
         setSocialLinks(res.data || []);
-         const contactRes = await categoriesApi.contactInfo; 
+         const contactRes = categoriesApi.contactInfo; 
         fetchContactInfo(contactRes.data);
+        // console.log("contactInfo" , contactInfo);
+        
       } catch (err) {
         console.error("Error fetching social links:", err);
       }
